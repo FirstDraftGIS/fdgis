@@ -1,0 +1,17 @@
+from distutils.core import setup
+
+setup(
+  name = 'fdgis',
+  packages = ['fdgis'],
+  package_dir = {'fdgis': 'fdgis'},
+  package_data = {'fdgis': ['__init__.py']},
+  version = '0.2',
+  description = 'Makes the first draft of your map',
+  author = 'Daniel J. Dufour',
+  author_email = 'daniel.j.dufour@gmail.com',
+  url = 'https://github.com/DanielJDufour/fdgis',
+  download_url = 'https://github.com/DanielJDufour/fdgis/tarball/download',
+  keywords = ['geocoding','geojson','gis','maps','nlp','python'],
+  classifiers = [],
+  install_requires=["requests"]
+)
