@@ -13,6 +13,11 @@ class TestStringMethods(unittest.TestCase):
         response = make_map(source)
         print 'response:', response
 
+    def testCityState(self):
+        source = "He visited Arlington, Texas last year."
+        response = make_map(source)
+        print "response:", response
+
 
 if __name__ == '__main__':
     unittest.main()

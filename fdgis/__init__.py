@@ -5,14 +5,20 @@ from time import sleep
 
 url_to_server = "https://dev.firstdraftgis.com"
 
-def make_map(source=None, sources=[], format="geojson", debug=True):
+def make_map(source=None, sources=None, format="geojson", debug=True):
+
+    if debug: print "starting make_map with", source, sources
 
     if not source and not sources:
         print "You forgot to include some sources, which your map will be based on!"
         print "If you have any questions, consult the documentation or email daniel@firstdraftgis.com :)"
         raise Exception("sources missing")
 
+    if not sources:
+        sources = []
+
     if source:
+        if debug: print "appending source to sources:", sources
         sources.append(source)
 
     # convert sources into format for call
@@ -36,9 +42,9 @@ def make_map(source=None, sources=[], format="geojson", debug=True):
     if debug: print "data:", data
     
     url = url_to_server + "/request_map_from_sources"
-    if debug: print "about to post to ", url
+    if debug: print "\nabout to post to ", url, data
     response = post(url, data=data, files=files)
-    if debug: print "response", response
+    if debug: print "response", response, "\n"
     token = response.text
     if debug: print "token:", token
 
