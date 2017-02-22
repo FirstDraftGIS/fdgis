@@ -5,7 +5,7 @@ setup(
   packages = ['fdgis'],
   package_dir = {'fdgis': 'fdgis'},
   package_data = {'fdgis': ['__init__.py']},
-  version = '0.6',
+  version = '0.8',
   description = 'Makes the first draft of your map',
   author = 'Daniel J. Dufour',
   author_email = 'daniel.j.dufour@gmail.com',
