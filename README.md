@@ -7,10 +7,18 @@ pip install fdgis
 ```
 
 # Use
+##GeoJSON
 ```
 from fdgis import make_map
 text = "He visited New Jersey last year."
 geojson = make_map(text)
+```
+##Image
+```
+from fdgis import make_map
+text = "He visited New Jersey last year."
+image = make_map(text, map_format="image")
+image.save("/tmp/map.png")
 ```
 
 ```
