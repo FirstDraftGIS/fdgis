@@ -11,7 +11,7 @@ pip install fdgis
 ```
 from fdgis import make_map
 text = "He visited New Jersey last year."
-geojson = make_map(text)
+geojson = make_map(text, map_format="geojson")
 ```
 ```
 {u'type': u'FeatureCollection', u'features': [{u'geometry': {u'type': u'GeometryCollection', u'geometries': [{u'type': u'Point', u'coordinates': [-74.49987, 40.16706]}]}, u'type': u'Feature', u'properties': {u'geonameid': 5101760, u'confidence': 0.0241, u'pcode': None, u'name': u'New Jersey', u'country_code': u'US'}}]}
