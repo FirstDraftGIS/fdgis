@@ -6,7 +6,7 @@ python_version = version_info.major
 import unittest
 from fdgis import make_map
 
-class TestStringMethods(unittest.TestCase):
+class TestMethods(unittest.TestCase):
 
     def testNJ(self):
         source = "He visited New Jersey last year."
@@ -28,6 +28,12 @@ class TestStringMethods(unittest.TestCase):
         source = "He visited Arlington, VA"
         image = make_map(source, map_format="png")
         image.save("/tmp/test.png")
+
+    def testPDFLink(self):
+        source = "https://www.state.gov/documents/organization/253169.pdf"
+        geojson = make_map(source, map_format="json")
+
+
 
 
 
