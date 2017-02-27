@@ -1,13 +1,13 @@
 # fdgis
-FDGIS is the Python library used to interface with your First Draft GIS server  
+**fdgis** is a Python library that **makes maps**.
 
-# Installation
+## Installation
 ```
 pip install fdgis
 ```
 
-# Use
-##GeoJSON
+## Use
+###GeoJSON
 ```
 from fdgis import make_map
 text = "He visited New Jersey last year."
@@ -17,7 +17,7 @@ geojson = make_map(text)
 {u'type': u'FeatureCollection', u'features': [{u'geometry': {u'type': u'GeometryCollection', u'geometries': [{u'type': u'Point', u'coordinates': [-74.49987, 40.16706]}]}, u'type': u'Feature', u'properties': {u'geonameid': 5101760, u'confidence': 0.0241, u'pcode': None, u'name': u'New Jersey', u'country_code': u'US'}}]}
 ```
 
-##Image
+###Image
 ```
 from fdgis import make_map
 text = "He visited Arlington, VA"
@@ -26,18 +26,21 @@ image.save("/tmp/map.png")
 ```
 <img src="https://raw.githubusercontent.com/FirstDraftGIS/fdgis/master/arlington.png" width="700px">
 
-# Features
+## Features
 | Languages Supported |
 | ------------------- |
 | Arabic |
 | English |
 | Spanish|
 
-# Testing
+## How it works
+**fdgis** works by sending requests to First Draft GIS servers.  First Draft GIS is an open-source artificial intelligence that makes maps.  The source code for First Draft GIS can be found at https://github.com/FirstDraftGIS/firstdraft.  By default the library works by sending a request to the public First Draft GIS server at https://firstdraftgis.com.
+
+## Testing
 To test the package run
 ```
 python -m unittest fdgis.tests.test
 ```
 
-# Help
+## Help
 If you have any questions, don't hesitate to contact the author at daniel@firstdraftgis.com or open up an issue on the GitHub Repo at https://github.com/FirstDraftGIS/fdgis/issues
