@@ -24,6 +24,7 @@ text = "He visited Arlington, VA"
 image = make_map(text, map_format="image")
 image.save("/tmp/map.png")
 ```
+<img src="https://raw.githubusercontent.com/FirstDraftGIS/fdgis/master/arlington.png" width="700px">
 
 # Features
 | Languages Supported |
@@ -37,3 +38,6 @@ To test the package run
 ```
 python -m unittest fdgis.tests.test
 ```
+
+# Help
+If you have any questions, don't hesitate to contact the author at daniel@firstdraftgis.com or open up an issue on the GitHub Repo at https://github.com/FirstDraftGIS/fdgis/issues
