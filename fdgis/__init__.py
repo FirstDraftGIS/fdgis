@@ -72,3 +72,9 @@ def make_map(source=None, sources=None, map_format="geojson", debug=True):
                 return loads(response.text)
             elif map_format in ("gif", "jpg", "png"):
                 return Image.open(StringIO(response.content))
+            else:
+                raise Exception("map_format (" + map_format + ") is invalid.  It must be geojson, gif, jpg, or png")
+        elif text == "no":
+            pass
+        else:
+            raise Exception("fdgis received the following response from the server when checking if the map is ready: " + text)
