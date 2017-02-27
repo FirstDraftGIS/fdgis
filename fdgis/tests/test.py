@@ -24,6 +24,10 @@ class TestStringMethods(unittest.TestCase):
         response = make_map(source)
         self.assertEqual(response['features'][0]['geometry']['geometries'][0]['coordinates'], [-77.10428, 38.88101])
 
+    def testImages(self):
+        source = "He visited Arlington, VA"
+        image = make_map(source, map_format="png")
+        image.save("/tmp/test.png")
 
 
 
