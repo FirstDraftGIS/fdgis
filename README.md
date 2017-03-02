@@ -49,5 +49,18 @@ To test the package run
 python -m unittest fdgis.tests.test
 ```
 
+## Input Data Formats Supported
+These are the types of data that FDGIS can create a map from
+
+| Format | Status |
+| ------ | ------ |
+| CSV | Soon |
+| DOC | Soon |
+| DOCX | Soon |
+| Excel | Soon |
+| PDF | Yes |
+| Raw Text | Yes |
+| Webpage | Yes |
+
 ## Help
 If you have any questions, don't hesitate to contact the author at daniel@firstdraftgis.com or open up an issue on the GitHub Repo at https://github.com/FirstDraftGIS/fdgis/issues
