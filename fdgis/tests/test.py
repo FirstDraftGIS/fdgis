@@ -6,6 +6,10 @@ python_version = version_info.major
 import unittest
 from fdgis import make_map
 
+from os.path import dirname, realpath
+
+path_to_directory_of_this_file = dirname(realpath(__file__))
+
 class TestMethods(unittest.TestCase):
 
     def testNJ(self):
@@ -32,6 +36,10 @@ class TestMethods(unittest.TestCase):
     def testPDFLink(self):
         source = "https://www.state.gov/documents/organization/253169.pdf"
         geojson = make_map(source, map_format="json")
+
+    def testDocx(self):
+        f = open(path_to_directory_of_this_file + "/test.docx")
+        geojson = make_map(f, map_format="geojson") 
 
 
 

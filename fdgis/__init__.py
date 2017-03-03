@@ -48,6 +48,9 @@ def make_map(source=None, sources=None, map_format="geojson", debug=True):
             else:
                 data[source_type] = "text"
                 data[source_data] = source
+        elif isinstance(source, file):
+            data[source_type] = "file"
+            files[source_data] = source
  
     if debug: print "data:", data
     

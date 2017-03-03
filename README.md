@@ -56,7 +56,7 @@ These are the types of data that FDGIS can create a map from
 | ------ | ------ |
 | CSV | Soon |
 | DOC | Soon |
-| DOCX | Soon |
+| DOCX | Yes |
 | Excel | Soon |
 | PDF | Yes |
 | Raw Text | Yes |
