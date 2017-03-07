@@ -41,6 +41,16 @@ class TestMethods(unittest.TestCase):
         f = open(path_to_directory_of_this_file + "/test.docx")
         geojson = make_map(f, map_format="geojson") 
 
+    def testCsv(self):
+        filepath = path_to_directory_of_this_file + "/test.csv"
+        geojson = make_map(filepath) 
+        self.assertEqual(len(geojson['features']), 7)
+
+    def testTsv(self):
+        filepath = path_to_directory_of_this_file + "/test.tsv"
+        geojson = make_map(filepath) 
+        self.assertEqual(len(geojson['features']), 7)
+
 
 
 

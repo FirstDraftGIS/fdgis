@@ -54,12 +54,13 @@ These are the types of data that FDGIS can create a map from
 
 | Format | Status |
 | ------ | ------ |
-| CSV | Soon |
+| CSV | Yes |
 | DOC | Soon |
 | DOCX | Yes |
 | Excel | Soon |
 | PDF | Yes |
 | Raw Text | Yes |
+| TSV | Yes |
 | Webpage | Yes |
 
 ## Help
