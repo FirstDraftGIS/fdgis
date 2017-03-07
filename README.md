@@ -55,14 +55,17 @@ These are the types of data that FDGIS can create a map from
 | Format | Status |
 | ------ | ------ |
 | CSV | Yes |
-| DOC | Soon |
+| DOC | No |
 | DOCX | Yes |
 | HTML | Yes |
 | PDF | Yes |
 | TXT | Yes |
 | TSV | Yes |
-| XLS | Soon |
+| XLS | No |
+| XLSM | Yes |
 | XLSX | Yes |
+| XLTM | Yes |
+| XLTX | Yes |
 
 ## Help
 If you have any questions, don't hesitate to contact the author at daniel@firstdraftgis.com or open up an issue on the GitHub Repo at https://github.com/FirstDraftGIS/fdgis/issues

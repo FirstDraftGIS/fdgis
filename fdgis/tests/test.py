@@ -33,10 +33,6 @@ class TestMethods(unittest.TestCase):
         image = make_map(source, map_format="png")
         image.save("/tmp/test.png")
 
-    def testPDFLink(self):
-        source = "https://www.state.gov/documents/organization/253169.pdf"
-        geojson = make_map(source, map_format="json")
-
     def testDocx(self):
         f = open(path_to_directory_of_this_file + "/test.docx")
         geojson = make_map(f, map_format="geojson") 
@@ -51,6 +47,31 @@ class TestMethods(unittest.TestCase):
         filepath = path_to_directory_of_this_file + "/test.txt"
         geojson = make_map(filepath)
         self.assertEqual(len(geojson['features']), 1)
+
+class TestLinks(unittest.TestCase):
+
+    def testLinkTxt(self):
+        geojson = make_map("https://raw.githubusercontent.com/FirstDraftGIS/fdgis/master/fdgis/tests/test.txt")
+        self.assertEqual(len(geojson['features']), 1)
+
+    def testPDFLink(self):
+        source = "https://www.state.gov/documents/organization/253169.pdf"
+        geojson = make_map(source, map_format="json")
+
+    def testStructuredLinks(self):
+        for extension in ["csv", "tsv", "xlsx"]:
+            try:
+                url = "https://raw.githubusercontent.com/FirstDraftGIS/fdgis/master/fdgis/tests/test." + extension
+                geojson = make_map(url)
+                self.assertEqual(len(geojson['features']), 7)
+            except Exception as e:
+                print "caught exception testing url:", url
+                print e
+                raise e
+
+
+
+
 
 
 if __name__ == '__main__':
