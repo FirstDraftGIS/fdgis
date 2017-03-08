@@ -9,6 +9,7 @@ from fdgis import make_map
 from os.path import dirname, realpath
 
 path_to_directory_of_this_file = dirname(realpath(__file__))
+print("path_to_directory_of_this_file:", dirname(realpath(__file__)))
 
 class TestMethods(unittest.TestCase):
 
@@ -34,8 +35,9 @@ class TestMethods(unittest.TestCase):
         image.save("/tmp/test.png")
 
     def testDocx(self):
-        f = open(path_to_directory_of_this_file + "/test.docx")
-        geojson = make_map(f, map_format="geojson") 
+        with open(path_to_directory_of_this_file + "/test.docx", "rb") as f:
+            geojson = make_map(f, map_format="geojson") 
+            self.assertTrue(len(geojson['features']) >= 1)
 
     def testFormats(self):
         for _format in ["csv", "tsv", "xlsx"]:
@@ -65,8 +67,8 @@ class TestLinks(unittest.TestCase):
                 geojson = make_map(url)
                 self.assertEqual(len(geojson['features']), 7)
             except Exception as e:
-                print "caught exception testing url:", url
-                print e
+                print("caught exception testing url: " + url)
+                print(e)
                 raise e
 
 
