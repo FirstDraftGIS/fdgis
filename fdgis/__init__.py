@@ -44,7 +44,7 @@ def make_map(source=None, sources=None, map_format="geojson", debug=False):
         opened_files = []
         for index, source in enumerate(sources):
             source_type = str(type(source))
-            print("source_type: " + source_type)
+            if debug: print("source_type: " + source_type)
             source_type_key = "source_" + str(index) + "_type"
             source_data = "source_" + str(index) + "_data"
             if source_type in ("<type 'str'>", "<type 'unicode'>", "<class 'str'>"):
