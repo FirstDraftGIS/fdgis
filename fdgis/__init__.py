@@ -11,7 +11,7 @@ elif python_version == 3:
     from io import BytesIO
 from time import sleep
 
-url_to_server = "https://dev.firstdraftgis.com"
+url_to_server = "https://firstdraftgis.com"
 
 def make_map(source=None, sources=None, map_format="geojson", debug=False):
 
