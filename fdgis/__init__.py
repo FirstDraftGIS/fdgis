@@ -1,7 +1,6 @@
 from sys import version_info
 python_version = version_info.major
 
-from json import loads
 from os.path import isfile
 from PIL import Image
 from requests import post
@@ -85,10 +84,9 @@ def make_map(source=None, sources=None, map_format="geojson", debug=False):
             if debug: print("got " + text)
             if text == "yes":
                 url = url_to_server + "/get_map/" + token + "/" + map_format
-                if debug: print("posting " + url)
                 response = post(url)
                 if map_format in ("geojson", "xy"):
-                   return loads(response.text)
+                   return response.json()
                 elif map_format in ("gif", "jpg", "png"):
                     if python_version == 2:
                         return Image.open(StringIO(response.content))
