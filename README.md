@@ -42,6 +42,12 @@ import fdgis
 fdgis.url_to_server = "https://yourownserverhere.com"
 geojson = fdgis.make_map("He took a long train ride to Columbus, OH.")
 ```
+If you want to point **fdgis** to the more advanced but highly unstable dev version, you would do the following:
+```
+import fdgis
+fdgis.url_to_server = "https://dev.firstdraftgis.com"
+geojson = fdgis.make_map("He took a long train ride to Columbus, OH.")
+```
 
 ## Testing
 To test the package run
