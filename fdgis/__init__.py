@@ -37,6 +37,8 @@ def make_map(source=None, sources=None, map_format="geojson", debug=False):
             map_format = "jpg"
         elif map_format in ("image", "img"):
             map_format = "png"
+        elif map_format in ("coordinate-pair", "xy-pair"):
+            map_format = "xy"
 
         # convert sources into format for call
         data = {}
@@ -85,7 +87,7 @@ def make_map(source=None, sources=None, map_format="geojson", debug=False):
                 url = url_to_server + "/get_map/" + token + "/" + map_format
                 if debug: print("posting " + url)
                 response = post(url)
-                if map_format == "geojson":
+                if map_format in ("geojson", "xy"):
                    return loads(response.text)
                 elif map_format in ("gif", "jpg", "png"):
                     if python_version == 2:
