@@ -72,6 +72,19 @@ class TestLinks(unittest.TestCase):
                 raise e
 
 
+class Timeout(unittest.TestCase):
+
+    def testTimeout(self):
+        try:
+            geojson = make_map("asdifhauwehf", timeout=1, timeout_raises_exception=True)
+        except Exception as e:
+            self.assertEqual(str(e), "Timeout")
+
+        geojson = make_map("asdifhauwehf", timeout=1)
+        self.assertEqual(geojson, None)
+
+
+
 
 
 

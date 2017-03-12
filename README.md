@@ -49,6 +49,17 @@ fdgis.url_to_server = "https://dev.firstdraftgis.com"
 geojson = fdgis.make_map("He took a long train ride to Columbus, OH.")
 ```
 
+## Timeout
+You can specify a timeout for the make_map method.  If the method doesn't make a map in the amount of seconds you specify it returns `None`.  If you prefer it to throw a Timeout error instead, you can write set `timeout_raises_exception` to `True`.  See the example below:
+```
+from fdgis import make_map
+try:
+    geojson = make_map("Houston has the best move.", timeout=3, timeout_raises_exception=True)
+except Excpetion as e:
+    print "UH OH. fdgis threw an exception"
+```
+
+
 ## Testing
 To test the package run
 ```
