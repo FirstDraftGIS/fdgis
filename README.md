@@ -54,7 +54,7 @@ You can specify a timeout for the make_map method.  If the method doesn't make a
 ```
 from fdgis import make_map
 try:
-    geojson = make_map("Houston has the best move.", timeout=3, timeout_raises_exception=True)
+    geojson = make_map("Houston has the best food.", timeout=3, timeout_raises_exception=True)
 except Excpetion as e:
     print "UH OH. fdgis threw an exception"
 ```
