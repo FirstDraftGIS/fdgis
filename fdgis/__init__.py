@@ -9,7 +9,10 @@ if python_version == 2:
 elif python_version == 3:
     from io import BytesIO
 from time import sleep
-from timeout import Timeout
+if python_version == 2:
+    from timeout import Timeout
+elif python_version == 3:
+    from .timeout import Timeout
 
 url_to_server = "https://firstdraftgis.com"
 
