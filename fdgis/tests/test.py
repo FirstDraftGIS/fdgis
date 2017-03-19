@@ -1,5 +1,7 @@
 #-*- coding: utf-8 -*-
 
+from collections import Counter
+
 from sys import version_info
 python_version = version_info.major
 
@@ -83,11 +85,18 @@ class Timeout(unittest.TestCase):
         geojson = make_map("asdifhauwehf", timeout=1)
         self.assertEqual(geojson, None)
 
+# commenting out until basemaps hit production
+"""
+class Basemap(unittest.TestCase):
 
-
-
-
-
+    def testBasemap(self):
+        image = make_map("South Africa, Hawaii", basemap="Stamen.Watercolor", map_format="image")
+        # make sure colors match predominant basemap colors
+        colors = [color for color, count Counter(image.getdata()).most_common(3)]
+        self.assertTrue((251, 243, 232, 255) in colors)
+        self.assertTrue((250, 242, 231, 255) in colors)
+        self.assertTrue((249, 241, 230, 255) in colors)
+"""
 
 if __name__ == '__main__':
     unittest.main()

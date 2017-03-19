@@ -13,7 +13,7 @@ from timeout import Timeout
 
 url_to_server = "https://firstdraftgis.com"
 
-def make_map(source=None, sources=None, map_format="geojson", debug=False, timeout=60, timeout_raises_exception=False):
+def make_map(source=None, sources=None, map_format="geojson", basemap=None, debug=False, timeout=60, timeout_raises_exception=False):
 
     try:
         with Timeout(seconds=timeout):
@@ -41,9 +41,14 @@ def make_map(source=None, sources=None, map_format="geojson", debug=False, timeo
             elif map_format in ("coordinate-pair", "xy-pair"):
                 map_format = "xy"
 
-            # convert sources into format for call
             data = {}
             files = {}
+
+            #basemap if given
+            if basemap:
+                data['basemap'] = basemap
+
+            # convert sources into format for call
             opened_files = []
             for index, source in enumerate(sources):
                 source_type = str(type(source))
@@ -71,7 +76,10 @@ def make_map(source=None, sources=None, map_format="geojson", debug=False, timeo
             url = url_to_server + "/request_map_from_sources"
             if debug: print("\nabout to post to " + url + " " + str(data))
             response = post(url, data=data, files=files)
-            if debug: print("responsei " + str(response) + "\n")
+            if debug: print("response is " + str(response) + "\n")
+            if debug:
+                print("r.request.headers: " + str(response.request.headers))
+                print("r.request.body: " + str(response.request.body))
             token = response.text
             if debug: print("token: " + str(token))
 

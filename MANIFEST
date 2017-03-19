@@ -2,3 +2,4 @@
 setup.cfg
 setup.py
 fdgis/__init__.py
+fdgis/timeout.py
