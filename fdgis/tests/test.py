@@ -85,6 +85,19 @@ class Timeout(unittest.TestCase):
         geojson = make_map("asdifhauwehf", timeout=1)
         self.assertEqual(geojson, None)
 
+class Combo(unittest.TestCase):
+
+    def testTextAndTxt(self):
+        txt_file = open(path_to_directory_of_this_file + "/test.txt", "rb")
+        text = "I want to go to Rome, Italy"
+        response = make_map([txt_file, text])
+        features = response['features']
+        self.assertTrue([f for f in features if f['properties']['name'] == "Australia"])
+        self.assertTrue([f for f in features if f['properties']['name'] == "Rome"])
+        txt_file.close()
+        
+        
+
 # commenting out until basemaps hit production
 """
 class Basemap(unittest.TestCase):

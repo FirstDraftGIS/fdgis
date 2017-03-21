@@ -16,23 +16,15 @@ elif python_version == 3:
 
 url_to_server = "https://firstdraftgis.com"
 
-def make_map(source=None, sources=None, map_format="geojson", basemap=None, debug=False, timeout=60, timeout_raises_exception=False):
+def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=60, timeout_raises_exception=False):
 
     try:
         with Timeout(seconds=timeout):
-            if debug: print("starting make_map with", source, sources)
+            if debug: print("starting make_map with", sources)
 
-            if not source and not sources:
-                print("You forgot to include some sources, which your map will be based on!")
-                print("If you have any questions, consult the documentation or email daniel@firstdraftgis.com :)")
-                raise Exception("sources missing")
-
-            if not sources:
-                sources = []
-
-            if source:
-                if debug: print("appending source to sources: " + str(sources))
-                sources.append(source)
+            # if passes in a singular source, turn it into a list, for for-loop below
+            if not isinstance(sources, list) and not isinstance(sources, set):
+                sources = [sources]
 
             map_format = map_format.lower()
             if map_format in ("json","pjson"):
@@ -78,6 +70,11 @@ def make_map(source=None, sources=None, map_format="geojson", basemap=None, debu
       
             url = url_to_server + "/request_map_from_sources"
             if debug: print("\nabout to post to " + url + " " + str(data))
+            if debug: print("\ndata: " + str(data))
+            if debug: print("\nfiles: " + str(files))
+           
+
+
             response = post(url, data=data, files=files)
             if debug: print("response is " + str(response) + "\n")
             if debug:
@@ -105,6 +102,8 @@ def make_map(source=None, sources=None, map_format="geojson", basemap=None, debu
                             return Image.open(StringIO(response.content))
                         elif python_version == 3:
                             return Image.open(BytesIO(response.content))
+                    elif map_format in ("csv", "tsv"):
+                        return response.text
                     else:
                         raise Exception("map_format (" + map_format + ") is invalid.  It must be geojson, gif, jpg, or png")
                 elif text == "no":
