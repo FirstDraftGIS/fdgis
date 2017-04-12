@@ -39,13 +39,13 @@ image.save("/tmp/map.png")
 **fdgis** works by sending requests to First Draft GIS servers.  First Draft GIS is an open-source artificial intelligence that makes maps.  The source code for First Draft GIS can be found at https://github.com/FirstDraftGIS/firstdraft.  By default the library works by sending a request to the public First Draft GIS server at https://firstdraftgis.com.  You can point fdgis to your own server in the following way
 ```
 import fdgis
-fdgis.url_to_server = "https://yourownserverhere.com"
+fdgis.default_url_to_server = "https://yourownserverhere.com"
 geojson = fdgis.make_map("He took a long train ride to Columbus, OH.")
 ```
 If you want to point **fdgis** to the more advanced but highly unstable dev version, you would do the following:
 ```
 import fdgis
-fdgis.url_to_server = "https://dev.firstdraftgis.com"
+fdgis.default_url_to_server = "https://dev.firstdraftgis.com"
 geojson = fdgis.make_map("He took a long train ride to Columbus, OH.")
 ```
 

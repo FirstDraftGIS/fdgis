@@ -14,13 +14,16 @@ if python_version == 2:
 elif python_version == 3:
     from .timeout import Timeout
 
-url_to_server = "https://firstdraftgis.com"
+default_url_to_server = "https://firstdraftgis.com"
 
-def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=60, timeout_raises_exception=False):
+def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=60, timeout_raises_exception=False, url_to_server=None):
 
     try:
         with Timeout(seconds=timeout):
             if debug: print("starting make_map with", sources)
+
+            if not url_to_server:
+                url_to_server = default_url_to_server
 
             # if passes in a singular source, turn it into a list, for for-loop below
             if not isinstance(sources, list) and not isinstance(sources, set):
