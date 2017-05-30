@@ -6,67 +6,89 @@ from sys import version_info
 python_version = version_info.major
 
 import unittest
-from fdgis import make_map
+import fdgis
 
 from os.path import dirname, realpath
 
 path_to_directory_of_this_file = dirname(realpath(__file__))
 print("path_to_directory_of_this_file:", dirname(realpath(__file__)))
 
+#fdgis.default_url_to_server = "https://dev.firstdraftgis.com"
+
 class TestMethods(unittest.TestCase):
+
+    def testAleppo(self):
+        source = "Where is Aleppo, Syria?"
+        response = fdgis.make_map(source, debug=False)
+        #self.assertEqual(response['features'][0]['geometry']['geometries'][0]['coordinates'], [-74.49987, 40.16706])
+        self.assertEqual(response['features'][0]['properties']['name'], "Aleppo")
+        self.assertEqual(response['features'][0]['properties']['country_code'], "SY")
+        self.assertEqual(len(response['features']), 1)
+
+    def testParisTexas(self):
+        source = "Where is Paris, United States?"
+        response = fdgis.make_map(source, debug=False)
+        self.assertEqual(response['features'][0]['properties']['name'], "Paris")
+        self.assertEqual(response['features'][0]['properties']['country_code'], "US")
+         
+
+    def testNonAscii(self):
+        source = "Despite a promise not to campaign following the attack Thursday night on Parisâs renowned Champs-ÃlysÃ©es boulevard, far-right candidate Marine Le Pen reinforced her anti-immigrant message in a Friday speech, calling on the French government to immediately reinstate border checks and expel foreigners being monitored by the intelligence services."
+        response = fdgis.make_map(source, debug=True)
+        print "response:", response
 
     def testNJ(self):
         source = "He visited New Jersey last year."
-        response = make_map(source)
+        response = fdgis.make_map(source)
         self.assertEqual(response['features'][0]['geometry']['geometries'][0]['coordinates'], [-74.49987, 40.16706])
 
     def testArlingtonTX(self):
         source = "He visited Arlington, TX"
-        response = make_map(source)
+        response = fdgis.make_map(source)
         self.assertEqual(response['features'][0]['geometry']['geometries'][0]['coordinates'], [-97.10807, 32.73569])
 
 
     def testArlingtonVA(self):
         source = "He visited Arlington, VA"
-        response = make_map(source)
+        response = fdgis.make_map(source)
         self.assertEqual(response['features'][0]['geometry']['geometries'][0]['coordinates'], [-77.10428, 38.88101])
 
     def testImages(self):
         source = "He visited Arlington, VA"
-        image = make_map(source, map_format="png")
+        image = fdgis.make_map(source, map_format="png")
         image.save("/tmp/test.png")
 
     def testDocx(self):
         with open(path_to_directory_of_this_file + "/test.docx", "rb") as f:
-            geojson = make_map(f, map_format="geojson") 
+            geojson = fdgis.make_map(f, map_format="geojson") 
             self.assertTrue(len(geojson['features']) >= 1)
 
     def testFormats(self):
         for _format in ["csv", "tsv", "xlsx"]:
             filepath = path_to_directory_of_this_file + "/test." + _format
-            geojson = make_map(filepath) 
+            geojson = fdgis.make_map(filepath) 
             self.assertEqual(len(geojson['features']), 7)
 
     def testTxt(self):
         filepath = path_to_directory_of_this_file + "/test.txt"
-        geojson = make_map(filepath)
+        geojson = fdgis.make_map(filepath)
         self.assertEqual(len(geojson['features']), 1)
 
 class TestLinks(unittest.TestCase):
 
     def testLinkTxt(self):
-        geojson = make_map("https://raw.githubusercontent.com/FirstDraftGIS/fdgis/master/fdgis/tests/test.txt")
+        geojson = fdgis.make_map("https://raw.githubusercontent.com/FirstDraftGIS/fdgis/master/fdgis/tests/test.txt")
         self.assertEqual(len(geojson['features']), 1)
 
     def testPDFLink(self):
         source = "https://www.state.gov/documents/organization/253169.pdf"
-        geojson = make_map(source, map_format="json")
+        geojson = fdgis.make_map(source, map_format="json")
 
     def testStructuredLinks(self):
         for extension in ["csv", "tsv", "xlsx"]:
             try:
                 url = "https://raw.githubusercontent.com/FirstDraftGIS/fdgis/master/fdgis/tests/test." + extension
-                geojson = make_map(url)
+                geojson = fdgis.make_map(url)
                 self.assertEqual(len(geojson['features']), 7)
             except Exception as e:
                 print("caught exception testing url: " + url)
@@ -78,11 +100,11 @@ class Timeout(unittest.TestCase):
 
     def testTimeout(self):
         try:
-            geojson = make_map("asdifhauwehf", timeout=1, timeout_raises_exception=True)
+            geojson = fdgis.make_map("asdifhauwehf", timeout=1, timeout_raises_exception=True)
         except Exception as e:
             self.assertEqual(str(e), "Timeout")
 
-        geojson = make_map("asdifhauwehf", timeout=1)
+        geojson = fdgis.make_map("asdifhauwehf", timeout=1)
         self.assertEqual(geojson, None)
 
 class Combo(unittest.TestCase):
@@ -90,7 +112,7 @@ class Combo(unittest.TestCase):
     def testTextAndTxt(self):
         txt_file = open(path_to_directory_of_this_file + "/test.txt", "rb")
         text = "I want to go to Rome, Italy"
-        response = make_map([txt_file, text])
+        response = fdgis.make_map([txt_file, text], debug=True)
         features = response['features']
         self.assertTrue([f for f in features if f['properties']['name'] == "Australia"])
         self.assertTrue([f for f in features if f['properties']['name'] == "Rome"])
@@ -103,7 +125,7 @@ class Combo(unittest.TestCase):
 class Basemap(unittest.TestCase):
 
     def testBasemap(self):
-        image = make_map("South Africa, Hawaii", basemap="Stamen.Watercolor", map_format="image")
+        image = fdgis.make_map("South Africa, Hawaii", basemap="Stamen.Watercolor", map_format="image")
         # make sure colors match predominant basemap colors
         colors = [color for color, count Counter(image.getdata()).most_common(3)]
         self.assertTrue((251, 243, 232, 255) in colors)
