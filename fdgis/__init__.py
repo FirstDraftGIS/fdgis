@@ -13,6 +13,7 @@ if python_version == 2:
     from timeout import Timeout
 elif python_version == 3:
     from .timeout import Timeout
+from zipfile import ZipFile
 
 default_url_to_server = "https://firstdraftgis.com"
 
@@ -38,6 +39,8 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
                 map_format = "png"
             elif map_format in ("coordinate-pair", "xy-pair"):
                 map_format = "xy"
+            elif map_format in ("shapefile", "shp", "zip"):
+                map_format = "shp"
 
             data = {"map_format": map_format}
             files = {}
@@ -97,7 +100,8 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
                 if debug: print("got " + text)
                 if text == "yes":
                     url = url_to_server + "/get_map/" + token + "/" + map_format
-                    response = post(url)
+                    stream = map_format == "shp"
+                    response = post(url, stream=stream)
                     if debug: print "response:", response.text
                     if map_format in ("geojson", "xy"):
                        return response.json()
@@ -108,6 +112,11 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
                             return Image.open(BytesIO(response.content))
                     elif map_format in ("csv", "tsv"):
                         return response.text
+                    elif map_format == "shp":
+                        if python_version == 2:
+                            return ZipFile(StringIO(response.content))
+                        elif python_version == 3:
+                            return ZipFile(BytesIO(response.content))
                     else:
                         raise Exception("map_format (" + map_format + ") is invalid.  It must be geojson, gif, jpg, or png")
                 elif text == "no":

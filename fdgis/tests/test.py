@@ -8,12 +8,32 @@ python_version = version_info.major
 import unittest
 import fdgis
 
-from os.path import dirname, realpath
+from os import listdir
+from os.path import dirname, join, realpath
+#from tempfile import gettempdir
+from tempfile import mkdtemp
 
 path_to_directory_of_this_file = dirname(realpath(__file__))
 print("path_to_directory_of_this_file:", dirname(realpath(__file__)))
 
-#fdgis.default_url_to_server = "https://dev.firstdraftgis.com"
+fdgis.default_url_to_server = "https://dev.firstdraftgis.com"
+
+class TestShapefile(unittest.TestCase):
+    def testShp1(self):
+        source = "Where is Richmond, VA?"
+        zipped_shapefile = fdgis.make_map(source, map_format="shapefile", debug=True)
+        try:
+            from django.contrib.gis.gdal import DataSource
+        except:
+            DataSource = None
+        if DataSource:
+            path_to_tmp_dir = mkdtemp()
+            zipped_shapefile.extractall(path_to_tmp_dir)
+            for filename in listdir(path_to_tmp_dir):
+                if filename.endswith(".shp"):
+                    ds = DataSource(join(path_to_tmp_dir, filename))
+                    self.assertEqual(ds.layer_count, 1)
+                    self.assertEqual(list(list(ds)[0])[0].get("name"), "Richmond")
 
 class TestMethods(unittest.TestCase):
 
@@ -25,11 +45,19 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(response['features'][0]['properties']['country_code'], "SY")
         self.assertEqual(len(response['features']), 1)
 
-    def testParisTexas(self):
+    def testParisUnitedState(self):
         source = "Where is Paris, United States?"
         response = fdgis.make_map(source, debug=False)
         self.assertEqual(response['features'][0]['properties']['name'], "Paris")
         self.assertEqual(response['features'][0]['properties']['country_code'], "US")
+
+    def testParisTexas(self):
+        source = "Where is Paris, Texas?"
+        response = fdgis.make_map(source, debug=True)
+        self.assertEqual(response['features'][0]['properties']['name'], "Paris")
+        self.assertEqual(response['features'][0]['properties']['country_code'], "US")
+        self.assertEqual(response['features'][0]['properties']['admin1code'], "TX")
+ 
          
 
     def testNonAscii(self):
