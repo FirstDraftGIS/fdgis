@@ -13,6 +13,7 @@ if python_version == 2:
     from timeout import Timeout
 elif python_version == 3:
     from .timeout import Timeout
+import validators
 from zipfile import ZipFile
 
 default_url_to_server = "https://firstdraftgis.com"
@@ -63,6 +64,10 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
                         data[source_type_key] = "file"
                         files[source_data] = f
                     elif source.startswith("http"):
+                        data[source_type_key] = "link"
+                        data[source_data] = source
+                    elif validators.url("http://" + source):
+                        source = "http://" + source
                         data[source_type_key] = "link"
                         data[source_data] = source
                     else:

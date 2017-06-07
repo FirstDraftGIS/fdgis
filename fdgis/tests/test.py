@@ -105,8 +105,14 @@ class TestMethods(unittest.TestCase):
 class TestLinks(unittest.TestCase):
 
     def testLinkTxt(self):
-        geojson = fdgis.make_map("https://raw.githubusercontent.com/FirstDraftGIS/fdgis/master/fdgis/tests/test.txt")
+        geojson = fdgis.make_map("https://raw.githubusercontent.com/FirstDraftGIS/fdgis/master/fdgis/tests/test.txt", debug=False)
         self.assertEqual(len(geojson['features']), 1)
+        self.assertEqual(geojson['features'][0]['properties']['name'], "Australia")
+
+    def testWithoutHttp(self):
+        geojson = fdgis.make_map("raw.githubusercontent.com/FirstDraftGIS/fdgis/master/fdgis/tests/test.txt", debug=True)
+        self.assertEqual(len(geojson['features']), 1)
+        self.assertEqual(geojson['features'][0]['properties']['name'], "Australia")
 
     def testPDFLink(self):
         source = "https://www.state.gov/documents/organization/253169.pdf"
