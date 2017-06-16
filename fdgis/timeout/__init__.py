@@ -11,11 +11,9 @@ class Timeout:
     def handle_timeout(self, signum, frame):
         raise OSError(self.error_message)
     def __enter__(self):
-        print "system:", system
         if system == "Linux":
             signal(SIGALRM, self.handle_timeout)
             alarm(self.seconds)
     def __exit__(self, type, value, traceback):
-        print "system:", system
         if system == "Linux":
             alarm(0)
