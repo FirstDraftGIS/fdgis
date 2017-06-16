@@ -2,7 +2,13 @@ from sys import version_info
 python_version = version_info.major
 
 from os.path import isfile
-from PIL import Image
+
+# we're not raising here because sometimes people don't need PIL
+try:
+    from PIL import Image
+except Exception as e:
+    print e
+
 from requests import post
 if python_version == 2:
     from StringIO import StringIO
