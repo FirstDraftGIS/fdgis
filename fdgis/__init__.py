@@ -107,7 +107,7 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
                     url = url_to_server + "/get_map/" + token + "/" + map_format
                     stream = map_format == "shp"
                     response = post(url, stream=stream, timeout=timeout)
-                    if debug: print "response:", response.text
+                    if debug: print("response: " + response.text)
                     if map_format in ("geojson", "xy"):
                        return response.json()
                     elif map_format in ("gif", "jpg", "png"):
