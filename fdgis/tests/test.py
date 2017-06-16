@@ -136,7 +136,7 @@ class Timeout(unittest.TestCase):
         try:
             geojson = fdgis.make_map("https://www.arlnow.com/2017/06/13/wawa-considering-arlington-as-part-of-d-c-area-expansion/", timeout=5, timeout_raises_exception=True, debug=True)
         except Exception as e:
-            self.assertEqual(str(e), "Timeout")
+            self.assertTrue("timeout" in str(e).lower())
 
         geojson = fdgis.make_map("asdifhauwehf", timeout=1)
         self.assertEqual(geojson, None)
