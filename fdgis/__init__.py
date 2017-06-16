@@ -101,7 +101,7 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
                 sleep(1)
                 url = url_to_server + "/does_map_exist/" + token + "/" + map_format
                 if debug: print("posting " + str(url))
-                text = post(url, timeout).text 
+                text = post(url, timeout=timeout).text 
                 if debug: print("got " + text)
                 if text == "yes":
                     url = url_to_server + "/get_map/" + token + "/" + map_format
@@ -133,5 +133,5 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
         print("[fdgis] error in make map")
         print("[fdgis] sources:" + str(sources))
         print("[fdgis] " + str(e))
-        if not (str(e) == "Timeout" and timeout_raises_exception == False):
+        if not ("timeout" in str(e).lower() and timeout_raises_exception == False):
             raise e
