@@ -86,7 +86,7 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
            
 
 
-            response = post(url, data=data, files=files)
+            response = post(url, data=data, files=files, timeout=timeout)
             if debug: print("response is " + str(response) + "\n")
             if debug:
                 print("r.request.headers: " + str(response.request.headers))
@@ -101,12 +101,12 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
                 sleep(1)
                 url = url_to_server + "/does_map_exist/" + token + "/" + map_format
                 if debug: print("posting " + str(url))
-                text = post(url).text 
+                text = post(url, timeout).text 
                 if debug: print("got " + text)
                 if text == "yes":
                     url = url_to_server + "/get_map/" + token + "/" + map_format
                     stream = map_format == "shp"
-                    response = post(url, stream=stream)
+                    response = post(url, stream=stream, timeout=timeout)
                     if debug: print "response:", response.text
                     if map_format in ("geojson", "xy"):
                        return response.json()

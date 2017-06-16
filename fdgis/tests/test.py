@@ -63,7 +63,7 @@ class TestMethods(unittest.TestCase):
     def testNonAscii(self):
         source = "Despite a promise not to campaign following the attack Thursday night on Parisâs renowned Champs-ÃlysÃ©es boulevard, far-right candidate Marine Le Pen reinforced her anti-immigrant message in a Friday speech, calling on the French government to immediately reinstate border checks and expel foreigners being monitored by the intelligence services."
         response = fdgis.make_map(source, debug=True)
-        print "response:", response
+        print("response:" + str(response))
 
     def testNJ(self):
         source = "He visited New Jersey last year."
@@ -134,7 +134,7 @@ class Timeout(unittest.TestCase):
 
     def testTimeout(self):
         try:
-            geojson = fdgis.make_map("asdifhauwehf", timeout=1, timeout_raises_exception=True)
+            geojson = fdgis.make_map("https://www.arlnow.com/2017/06/13/wawa-considering-arlington-as-part-of-d-c-area-expansion/", timeout=5, timeout_raises_exception=True, debug=True)
         except Exception as e:
             self.assertEqual(str(e), "Timeout")
 
