@@ -59,6 +59,12 @@ except Excpetion as e:
     print "UH OH. fdgis threw an exception"
 ```
 
+## End User Timezone
+You can specify the timezone if made by an end user by using the end_user_timezone field.
+```
+from fdgis import make_map
+geojson = make_map("I like Clarendon", end_user_timezone="America/New_York")
+```
 
 ## Testing
 To test the package run

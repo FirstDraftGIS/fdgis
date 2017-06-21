@@ -24,7 +24,7 @@ from zipfile import ZipFile
 
 default_url_to_server = "https://firstdraftgis.com"
 
-def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=60, timeout_raises_exception=False, url_to_server=None):
+def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=60, timeout_raises_exception=False, end_user_timezone=None, url_to_server=None):
 
     try:
         with Timeout(seconds=timeout):
@@ -55,6 +55,10 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
             #basemap if given
             if basemap:
                 data['basemap'] = basemap
+
+            # end_user_timezone if given
+            if end_user_timezone:
+                data['end_user_timezone'] = end_user_timezone
 
             # convert sources into format for call
             opened_files = []
