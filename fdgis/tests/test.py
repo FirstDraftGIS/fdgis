@@ -18,6 +18,26 @@ print("path_to_directory_of_this_file:", dirname(realpath(__file__)))
 
 fdgis.default_url_to_server = "https://dev.firstdraftgis.com"
 
+class TestQuick(unittest.TestCase):
+
+    def testClarendon(self):
+        source = "I like Clarendon"
+        geojson = fdgis.make_map(source, debug=True, end_user_timezone="America/New_York")
+        self.assertEqual(geojson['features'][0]['properties']['timezone'], "America/New_York")
+
+    def testParis(self):
+        source = "I love Paris"
+        geojson = fdgis.make_map(source, debug=True)
+        self.assertEqual(geojson['features'][0]['properties']['country_code'], "FR")
+
+    def testParisWithTimeZone(self):
+        source = "I love Paris"
+        geojson = fdgis.make_map(source, debug=True, end_user_timezone="America/New_York")
+        self.assertEqual(geojson['features'][0]['properties']['country_code'], "FR")
+
+
+
+
 class TestTimezone(unittest.TestCase):
 
     def testClarendon(self):
