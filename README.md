@@ -72,6 +72,11 @@ To test the package run
 python -m unittest fdgis.tests.test
 ```
 
+If you have fdgis installed on a First Draft GIS server and want to use it to test your local server, run
+```
+python -m fdgis.tests.test_locally
+```
+
 ## Input Data Formats Supported
 These are the types of data that FDGIS can create a map from
 

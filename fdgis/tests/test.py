@@ -16,7 +16,15 @@ from tempfile import mkdtemp
 path_to_directory_of_this_file = dirname(realpath(__file__))
 print("path_to_directory_of_this_file:", dirname(realpath(__file__)))
 
+
+
 fdgis.default_url_to_server = "https://dev.firstdraftgis.com"
+
+class TestArabic(unittest.TestCase):
+    def test1(self):
+        #quote from news
+        source = u"\u0625\u0633\u0631\u0627\u0626\u064a\u0644 \u062a\u0633\u062a\u0628\u062f\u0644 \u0627\u0644\u0628\u0648\u0627\u0628\u0627\u062a \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a\u0629 \u0628\u0627\u0644\u0623\u0642\u0635\u0649 \u0628\u0643\u0627\u0645\u064a\u0631\u0627\u062a \u0645\u062a\u0637\u0648\u0631\u0629"
+        geojson = fdgis.make_map(source, debug=True)
 
 class TestQuick(unittest.TestCase):
 
@@ -195,4 +203,5 @@ class Basemap(unittest.TestCase):
 """
 
 if __name__ == '__main__':
+    
     unittest.main()
