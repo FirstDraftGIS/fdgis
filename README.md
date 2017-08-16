@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/FirstDraftGIS/fdgis.svg?branch=master)](https://travis-ci.org/FirstDraftGIS/fdgis)
-
 # fdgis
 **fdgis** is a Python library that **makes maps**.
 
