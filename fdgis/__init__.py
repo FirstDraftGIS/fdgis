@@ -24,7 +24,7 @@ from zipfile import ZipFile
 
 default_url_to_server = "https://firstdraftgis.com"
 
-def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=60, timeout_raises_exception=False, end_user_timezone=None, url_to_server=None):
+def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=60, timeout_raises_exception=False, end_user_timezone=None, url_to_server=None, case_insensitive=None):
 
     try:
         with Timeout(seconds=timeout):
@@ -51,6 +51,9 @@ def make_map(sources, map_format="geojson", basemap=None, debug=False, timeout=6
 
             data = {"map_format": map_format}
             files = {}
+
+            if case_insensitive is True:
+                data['case_insensitive'] = True
 
             #basemap if given
             if basemap:

@@ -20,6 +20,33 @@ print("path_to_directory_of_this_file:", dirname(realpath(__file__)))
 
 fdgis.default_url_to_server = "https://dev.firstdraftgis.com"
 
+class TestCaseInsensitive(unittest.TestCase):
+
+    def test_bethesda(self):
+        source = "bethesda"
+        geojson = fdgis.make_map(source, case_insensitive=True, debug=True)
+        try:
+            self.assertEqual(geojson['features'][0]['properties']['name'], "Bethesda")
+        except Exception as e:
+            print "geojson:", geojson
+            raise e
+
+    """
+    def test_bethesda_md(self):
+        source = "bethesda, md"
+        geojson = fdgis.make_map(source, case_insensitive=True, debug=True)
+        try:
+            self.assertEqual(geojson['features'][0]['properties']['name'], "bethesda")
+        except Exception as e:
+            print "geojson:", geojson
+            raise e
+
+    def test_dupont_circle(self):
+        source = "dupont circle"
+        geojson = fdgis.make_map(source, case_insensitive=True, debug=True)
+        self.assertEqual(geojson['features'][0]['properties']['name'], "dupont circle")
+    """
+
 class TestArabic(unittest.TestCase):
     def test1(self):
         #quote from news
