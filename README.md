@@ -64,6 +64,13 @@ from fdgis import make_map
 geojson = make_map("I like Clarendon", end_user_timezone="America/New_York")
 ```
 
+## Case Insensitivity
+You can resolve places without case sensitivity.
+```
+from fdgis import make_map
+geojson = make_map("bethesda", case_insensitive=True)
+```
+
 ## Testing
 To test the package run
 ```
