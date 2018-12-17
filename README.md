@@ -1,3 +1,5 @@
+:warning: The public API no longer works because the EC2 server was costing too much.  I'm rewriting the core service using Lambda, which will take several months.  Let me know if you have any thoughts or want help setting up your own first draft server. You can contact me at daniel.j.dufour@gmail.com and I apologize for the inconvenience.  Also, would love some help with this if you want to contribute :-) 
+
 # fdgis
 **fdgis** is a Python library that **makes maps**.
 
